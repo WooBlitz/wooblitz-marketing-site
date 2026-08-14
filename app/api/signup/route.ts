@@ -39,12 +39,18 @@ export async function POST(request: NextRequest) {
   }
 
   if (data.user) {
-    await supabase.from('signups').insert({
-      user_id: data.user.id,
-      email: parsed.data.email,
-      business_name: parsed.data.business_name,
-      status: 'pending_email_verification',
-    });
+    // Try to insert into the signups table. Don't fail signup if it doesn't
+    // exist yet (the table needs to be created via supabase/migrations/).
+    try {
+      await supabase.from('signups').insert({
+        user_id: data.user.id,
+        email: parsed.data.email,
+        business_name: parsed.data.business_name,
+        status: 'pending_email_verification',
+      });
+    } catch (tableErr) {
+      console.warn('[signup] signups table not yet created:', (tableErr as Error).message);
+    }
   }
 
   return NextResponse.json({ ok: true, user_id: data.user?.id });
