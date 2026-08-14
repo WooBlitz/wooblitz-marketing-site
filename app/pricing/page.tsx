@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Header } from '../(marketing)/_components/header';
-import { Footer } from '../(marketing)/_components/footer';
-import { Pricing } from '../(marketing)/_components/pricing';
-import { FAQ } from '../(marketing)/_components/faq';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
+import { Pricing } from '@/components/pricing';
+import { FAQ } from '@/components/faq';
 
 export const metadata: Metadata = {
   title: 'Pricing — Wooblitz',

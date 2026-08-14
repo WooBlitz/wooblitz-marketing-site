@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Mail, Sparkles } from 'lucide-react';
-import { Header } from '../_components/header';
-import { Footer } from '../_components/footer';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import { supabase } from '@/lib/supabase';
 import { redirect } from 'next/navigation';
 

@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, ArrowRight, ArrowLeft } from 'lucide-react';
-import { Header } from '@/app/(marketing)/_components/header';
-import { Footer } from '@/app/(marketing)/_components/footer';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import { createServerClient } from '@/lib/supabase-server';
 
 export const metadata = { title: 'Email me a sign-in link — Wooblitz' };

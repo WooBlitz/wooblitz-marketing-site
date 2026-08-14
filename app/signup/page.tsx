@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
-import { Header } from '../_components/header';
-import { Footer } from '../_components/footer';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import { signUp } from './actions';
 
 export const metadata = {

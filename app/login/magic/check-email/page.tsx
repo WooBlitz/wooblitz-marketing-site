@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { MailCheck, ArrowLeft } from 'lucide-react';
-import { Header } from '@/app/(marketing)/_components/header';
-import { Footer } from '@/app/(marketing)/_components/footer';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 export const metadata = { title: 'Check your email — Wooblitz' };
 

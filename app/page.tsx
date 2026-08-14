@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { Header } from './_components/header';
-import { Hero } from './_components/hero';
-import { HowItWorks } from './_components/how-it-works';
-import { Features } from './_components/features';
-import { UseCases } from './_components/use-cases';
-import { Pricing } from './_components/pricing';
-import { FAQ } from './_components/faq';
-import { FinalCTA } from './_components/final-cta';
-import { Footer } from './_components/footer';
+import { Header } from '@/components/header';
+import { Hero } from '@/components/hero';
+import { HowItWorks } from '@/components/how-it-works';
+import { Features } from '@/components/features';
+import { UseCases } from '@/components/use-cases';
+import { Pricing } from '@/components/pricing';
+import { FAQ } from '@/components/faq';
+import { FinalCTA } from '@/components/final-cta';
+import { Footer } from '@/components/footer';
 
 export default function HomePage() {
   return (
