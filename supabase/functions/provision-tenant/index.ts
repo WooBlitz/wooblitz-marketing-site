@@ -44,15 +44,28 @@ Deno.serve(async (req: Request) => {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  let user: SupabaseUser;
+  let payload: Record<string, unknown>;
   try {
-    user = await req.json();
+    payload = await req.json();
   } catch {
     return new Response('Invalid JSON', { status: 400 });
   }
 
+  // Handle two payload formats:
+  // 1. Supabase webhook format: { type, table, record: {id, email, user_metadata}, old_record }
+  // 2. Flat format: { id, email, user_metadata }
+  let user: SupabaseUser;
+  if (payload.record && typeof payload.record === 'object') {
+    user = payload.record as unknown as SupabaseUser;
+  } else {
+    user = payload as unknown as SupabaseUser;
+  }
+
   if (!user.email || !user.id) {
-    return new Response('Missing user.email or user.id', { status: 400 });
+    return new Response(
+      JSON.stringify({ ok: false, error: 'missing_user_data', payload_keys: Object.keys(payload) }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 
   const business_name =
