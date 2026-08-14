@@ -127,3 +127,107 @@ lib/
   `app.wooblitz.com`.
 - This is **not** the storefront. Each merchant's storefront lives on the platform,
   not here.
+
+
+## Local development
+
+```bash
+# 1. Install dependencies
+pnpm install
+
+# 2. Set environment (use the values from C:\Users\hamada\Desktop\Kees.txt)
+cp .env.example .env.local
+# Edit .env.local with the Supabase URL + anon key
+
+# 3. Start the dev server
+pnpm dev
+# Runs on http://localhost:3001
+```
+
+## Deployment
+
+```bash
+# Push to main branch — Vercel auto-deploys via GitHub integration
+git push origin main
+
+# Or trigger a manual deploy via the Vercel REST API
+# (see scripts/deploy.sh or the project's deploy notes)
+```
+
+## Database setup
+
+```bash
+# Login to Supabase CLI (one-time)
+supabase login --token sbp_...  # personal access token from Kees.txt
+
+# Link the project
+supabase link --project-ref bxatopszcyhutaitmjyi
+
+# Apply migrations
+supabase db push  # uses SUPABASE_DB_PASSWORD env var
+
+# Deploy Edge Functions
+supabase functions deploy provision-tenant --no-verify-jwt
+
+# Set Edge Function secrets
+supabase secrets set PLATFORM_API_URL=https://wooblitz-medusa-web.onrender.com
+supabase secrets set INTERNAL_API_SECRET=...  # same as the platform's INTERNAL_API_SECRET
+```
+
+## Architecture diagram
+
+```
+Browser                Vercel (this repo)        Supabase            Render (platform)
+   |                          |                       |                       |
+   |-- GET / ----------------->|                       |                       |
+   |<-- HTML (200) ----------|                       |                       |
+   |                          |                       |                       |
+   |-- POST /signup --------->|                       |                       |
+   |                          |-- Supabase auth -------->|                       |
+   |                          |<-- user_id -------------|                       |
+   |                          |-- INSERT signups ------->|                       |
+   |                          |<-- ok ------------------|                       |
+   |<-- "check your email" --|                       |                       |
+   |                          |                       |                       |
+   | (user clicks link)       |                       |                       |
+   |                          |                       |                       |
+   |                          | (auth.users webhook)   |                       |
+   |                          |<-- POST /functions/v1/provision-tenant ---|       |
+   |                          |                       |-- POST /internal/tenants ------->|
+   |                          |                       |  +x-internal-api-secret          |
+   |                          |                       |                       |-- create user ---->|
+   |                          |                       |                       |-- create account ->|
+   |                          |                       |                       |-- create org ----->|
+   |                          |                       |                       |-- create member --->|
+   |                          |                       |                       |-- create brand_kit |
+   |                          |                       |<-- 201 tenant_id ------|
+   |                          |                       |-- PATCH signups.status=tenant_provisioned
+   |<-- 200 ok ---------------|                       |                       |
+```
+
+## What's where
+
+| Path | Purpose |
+|---|---|
+| `app/page.tsx` | Landing page with merchant-focused copy |
+| `app/signup/` | Email + business_name + password signup |
+| `app/login/` | Password + magic link sign-in |
+| `app/pricing/` | 3-tier pricing (Starter / Growth / Pro) |
+| `components/` | Hand-built Tailwind components (Hero, Features, etc.) |
+| `lib/supabase.ts` | Browser Supabase client |
+| `lib/supabase-server.ts` | Server Supabase client (RSC + actions) |
+| `supabase/migrations/` | SQL migrations for signups table |
+| `supabase/functions/provision-tenant/` | Edge Function that creates the platform tenant |
+
+## Cost: $0/mo
+
+- Vercel free tier
+- Supabase free tier
+- Cloudflare (existing, for DNS)
+- Render (existing, for platform)
+
+## Reference docs
+
+- [Postmortem: marketing-site-deploy-loop](https://github.com/WooBlitz/wooblitz/blob/main/docs/postmortems/2026-08-14-marketing-site-deploy-loop.md) — the brand_kit RLS trap that took 7 deploys
+- [Postmortem: supabase-tenant-creation](https://github.com/WooBlitz/wooblitz/blob/main/docs/postmortems/2026-08-14-supabase-tenant-creation.md) — the working E2E flow
+- [AGENTS.md §2.0.2 + §2.0.4](https://github.com/WooBlitz/wooblitz/blob/main/AGENTS.md) — local-first deploy rule (the user-mandated one)
