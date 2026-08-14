@@ -97,12 +97,10 @@ Deno.serve(async (req: Request) => {
 
   const tenant = (await res.json()) as PlatformTenantResponse;
 
-  // Mark the signup as tenant_provisioned
-  const supabaseAdmin = createAdminClient();
-  await supabaseAdmin
-    .from('signups')
-    .update({ status: 'tenant_provisioned' })
-    .eq('user_id', user.id);
+  // Mark the signup as tenant_provisioned (fire-and-forget)
+  await markSignupProvisioned(user.id).catch((err) => {
+    console.error('[provision-tenant] Failed to mark signup:', err);
+  });
 
   return new Response(
     JSON.stringify({ ok: true, tenant_id: tenant.tenant_id }),
@@ -110,19 +108,20 @@ Deno.serve(async (req: Request) => {
   );
 });
 
-// Helper: create a Supabase admin client (service role)
-// Only available inside the Edge Function runtime.
-function createAdminClient() {
-  const url = Deno.env.get('SUPABASE_URL')!;
-  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-  return {
-    from(table: string) {
-      return {
-        async update(values: Record<string, unknown>) {
-          // ... omitted for brevity; in production, use @supabase/supabase-js
-          return { eq: () => ({ /* ... */ }) };
-        },
-      };
+// Helper: mark a signup as tenant_provisioned via Supabase REST API.
+// Uses fetch (built into Deno) — no extra imports needed.
+async function markSignupProvisioned(user_id: string): Promise<void> {
+  const url = Deno.env.get('SUPABASE_URL');
+  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  if (!url || !serviceKey) return;
+
+  await fetch(`${url}/rest/v1/signups?user_id=eq.${user_id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
     },
-  };
+    body: JSON.stringify({ status: 'tenant_provisioned' }),
+  });
 }
