@@ -1,21 +1,17 @@
 import Link from 'next/link';
-import { ArrowRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { signUp } from './actions';
+import { SignupForm } from './signup-form';
 
 export const metadata = {
   title: 'Start your free store — Wooblitz',
   description: 'Tell us what you sell. We will build your storefront in under 5 minutes. No credit card required.',
 };
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
-export default function SignupPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
+export default function SignupPage() {
   return (
     <>
       <Header />
@@ -56,69 +52,7 @@ export default function SignupPage({
             </div>
 
             <div>
-              <form action={signUp} className="space-y-4">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-1.5">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="you@yourstore.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="business_name" className="block text-sm font-medium mb-1.5">
-                    What are you selling? (or your business name)
-                  </label>
-                  <input
-                    id="business_name"
-                    name="business_name"
-                    type="text"
-                    required
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="e.g. Modern coffee beans, or ACME Studio"
-                  />
-                  <p className="mt-1.5 text-xs text-muted-foreground">
-                    We will use this to set up your storefront.
-                  </p>
-                </div>
-
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium mb-1.5">
-                    Create a password
-                  </label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    minLength={8}
-                    autoComplete="new-password"
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="At least 8 characters"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2.5 text-sm font-medium hover:opacity-90"
-                >
-                  Create my free store
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-
-                <p className="text-xs text-muted-foreground text-center">
-                  By continuing, you agree to our{' '}
-                  <Link href="/terms" className="underline">Terms</Link> and{' '}
-                  <Link href="/privacy" className="underline">Privacy Policy</Link>.
-                </p>
-              </form>
+              <SignupForm />
 
               <p className="mt-6 text-center text-sm text-muted-foreground">
                 Already have an account?{' '}
@@ -132,5 +66,5 @@ export default function SignupPage({
       </main>
       <Footer />
     </>
-  );
+  )
 }
