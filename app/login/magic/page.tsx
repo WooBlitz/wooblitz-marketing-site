@@ -7,6 +7,8 @@ import { createServerClient } from '@/lib/supabase-server';
 
 export const metadata = { title: 'Email me a sign-in link — Wooblitz' };
 
+export const dynamic = 'force-dynamic'
+
 export default async function MagicLinkPage({
   searchParams,
 }: {

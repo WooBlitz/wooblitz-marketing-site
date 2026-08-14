@@ -9,6 +9,8 @@ export const metadata = {
   description: 'Tell us what you sell. We will build your storefront in under 5 minutes. No credit card required.',
 };
 
+export const dynamic = 'force-dynamic'
+
 export default function SignupPage({
   searchParams,
 }: {
