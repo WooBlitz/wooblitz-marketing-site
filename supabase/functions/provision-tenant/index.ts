@@ -59,7 +59,7 @@ Deno.serve(async (req: Request) => {
     user.user_metadata?.business_name ?? user.email.split('@')[0] ?? 'My Store';
 
   // Call the platform's tenant-creation endpoint
-  const res = await fetch(`${PLATFORM_API_URL}/api/admin/tenants`, {
+  const res = await fetch(`${PLATFORM_API_URL}/internal/tenants`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
