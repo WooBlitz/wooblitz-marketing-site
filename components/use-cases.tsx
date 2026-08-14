@@ -1,7 +1,7 @@
 const cases = [
   {
     industry: 'Coffee',
-    blurb: '"I run a small roastery. Wooblitz understood what I meant by 'modern but warm' and just built it."',
+    blurb: 'I run a small roastery. Wooblitz understood what I meant by modern-but-warm and just built it.',
   },
   {
     industry: 'Fashion',
