@@ -4,6 +4,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { supabase } from '@/lib/supabase';
 import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase-server'
 
 export const metadata = { title: 'Sign in — Wooblitz' };
 
@@ -29,7 +30,7 @@ export default async function LoginPage({
     if (!email || !password) {
       redirect(`/login?error=${encodeURIComponent('Please enter your email and password')}`);
     }
-    const supabaseServer = (await import('@/lib/supabase-server')).createServerClient();
+    const supabaseServer = await createServerClient();
     const { error } = await supabaseServer.auth.signInWithPassword({ email, password });
     if (error) {
       redirect(`/login?error=${encodeURIComponent(error.message)}`);
