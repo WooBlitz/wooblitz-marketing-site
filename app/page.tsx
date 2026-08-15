@@ -1,28 +1,25 @@
-import Link from 'next/link';
-import { Header } from '@/components/header';
-import { Hero } from '@/components/hero';
-import { HowItWorks } from '@/components/how-it-works';
-import { Features } from '@/components/features';
-import { UseCases } from '@/components/use-cases';
-import { Pricing } from '@/components/pricing';
-import { FAQ } from '@/components/faq';
-import { FinalCTA } from '@/components/final-cta';
-import { Footer } from '@/components/footer';
+import HeroPage from "@/components/shadcn-space/blocks/hero-18"
+import LogoCloudSection from "@/components/shadcn-space/blocks/logo-cloud-01"
+import FeatureSection from "@/components/shadcn-space/blocks/feature-02"
+import TestimonialSection from "@/components/shadcn-space/blocks/testimonial-01"
+import PricingSection from "@/components/shadcn-space/blocks/pricing-03"
+import FaqSection from "@/components/shadcn-space/blocks/faq-01"
+import CtaSection from "@/components/shadcn-space/blocks/cta-03"
+import FooterSection from "@/components/shadcn-space/blocks/footer-03"
+
+export const dynamic = "force-dynamic"
 
 export default function HomePage() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <Features />
-        <UseCases />
-        <Pricing />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </>
-  );
+    <main className="min-h-screen bg-background text-foreground">
+      <HeroPage />
+      <LogoCloudSection />
+      <FeatureSection />
+      <TestimonialSection />
+      <PricingSection />
+      <FaqSection />
+      <CtaSection />
+      <FooterSection />
+    </main>
+  )
 }

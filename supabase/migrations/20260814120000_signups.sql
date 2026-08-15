@@ -1,5 +1,5 @@
 -- Wooblitz marketing site — signups table
--- Run this in the Supabase SQL editor for your marketing project.
+-- Captures the marketing lead information from wooblitz.com signups.
 
 create table if not exists public.signups (
   id uuid primary key default gen_random_uuid(),
@@ -7,12 +7,7 @@ create table if not exists public.signups (
   email text not null,
   business_name text not null,
   status text not null default 'pending_email_verification'
-    check (status in (
-      ''pending_email_verification'',
-      ''verified'',
-      ''tenant_provisioned'',
-      ''cancelled''
-    )),
+    check (status in ('pending_email_verification', 'verified', 'tenant_provisioned', 'cancelled')),
   utm_source text,
   utm_medium text,
   utm_campaign text,
@@ -25,7 +20,7 @@ create index if not exists signups_email_idx on public.signups (email);
 create index if not exists signups_status_idx on public.signups (status);
 create index if not exists signups_created_at_idx on public.signups (created_at desc);
 
--- Auto-update updated_at
+-- Auto-update updated_at on row updates
 create or replace function public.tg_signups_updated_at()
 returns trigger language plpgsql as $$
 begin
@@ -34,18 +29,21 @@ begin
 end;
 $$;
 
+drop trigger if exists signups_set_updated_at on public.signups;
 create trigger signups_set_updated_at
 before update on public.signups
 for each row execute function public.tg_signups_updated_at();
 
--- RLS: only the user who created the signup can read their own row.
--- Service role (used by the platform webhook) can read all.
+-- RLS: a user can read their own signup; service role (used by the platform webhook)
+-- can read/write all rows.
 alter table public.signups enable row level security;
 
 create policy "Users can read their own signup"
   on public.signups for select
   using (auth.uid() = user_id);
 
--- No insert policy — signups are created via the service role
--- (server action uses createServerClient with anon key + auth,
---  but the insert runs with the service role key from the dashboard).
+-- Insert is done from the marketing server (anon key + cookie session)
+-- so we allow insert when auth.uid() matches the new user_id
+create policy "Users can insert their own signup"
+  on public.signups for insert
+  with check (auth.uid() = user_id);
