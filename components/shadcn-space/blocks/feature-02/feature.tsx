@@ -201,14 +201,14 @@ const Feature = ({ featureData = DEFAULT_FEATURES }: { featureData?: Features })
 
                 <p className="font-normal text-sm">
 
-                  Launch faster with modular designs by Shadcn Space now
+                  Get started in minutes — no code required
 
                 </p>
 
               </div>
 
               <Button asChild className="rounded-full px-5 py-2.5 shadow-xs h-full cursor-pointer">
-                              <a href="#">Browse more block</a>
+                              <a href="#">See how it works</a>
                             </Button>
 
             </motion.div>

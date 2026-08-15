@@ -410,7 +410,7 @@ const Footer = () => {
 
           <p className="text-sm font-normal text-muted-foreground text-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
 
-            ©2026 Shadcn Space. All Rights Reserved
+            ©2026 Wooblitz. All rights reserved
 
           </p>
 

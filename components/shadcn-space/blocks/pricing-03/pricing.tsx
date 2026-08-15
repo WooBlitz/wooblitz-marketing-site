@@ -123,13 +123,13 @@ export default function Pricing() {
 
         {
 
-            plan_name: "Basic",
+            plan_name: "Free",
 
             plan_descp:
 
-                "Build foundational skills with 10 essential courses.",
+                "Get your store online. Perfect for trying Wooblitz.",
 
-            plan_price: 19,
+            plan_price: 0,
 
             plan_feature: [
 
@@ -155,7 +155,7 @@ export default function Pricing() {
 
             plan_descp:
 
-                "Build foundational skills with 10 essential courses.",
+                "Get your store online. Perfect for trying Wooblitz.",
 
             plan_price: 29,
 
@@ -183,7 +183,7 @@ export default function Pricing() {
 
             plan_descp:
 
-                "Build foundational skills with 10 essential courses.",
+                "Get your store online. Perfect for trying Wooblitz.",
 
             plan_price: 99,
 

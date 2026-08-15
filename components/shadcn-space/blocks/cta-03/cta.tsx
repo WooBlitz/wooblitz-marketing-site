@@ -24,25 +24,25 @@ export default function CTA() {
 
                             <Badge className="py-0.5 px-2 bg-background text-foreground text-sm font-normal h-auto border-0">
 
-                                Get started today
+                                Ready to launch your store?
 
                             </Badge>
 
                             <h2 className="sm:text-5xl text-3xl font-semibold">
 
-                                Ready to transform the way you work?
+                                Ready to start selling?
 
                             </h2>
 
                             <p className="sm:text-base text-sm text-muted-foreground">
 
-                                Unlock powerful tools designed to streamline operations, boost productivity, and help your team scale faster. Join thousands of businesses already building smarter.
+                                Tell us what you sell. We'll build your storefront in minutes — no code, no design skills, no hassle.
 
                             </p>
 
                             <Button asChild className="w-fit text-sm font-medium py-3.5 px-6 rounded-lg h-auto border-0 hover:cursor-pointer"><a href="#">
 
-                                Start Free Trial
+                                Start free trial
 
                             </a>
                             </Button>

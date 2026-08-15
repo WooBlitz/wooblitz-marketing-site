@@ -258,7 +258,7 @@ const Footer = () => {
 
             <p className="text-base font-normal text-muted-foreground">
 
-              ©2026 Shadcn Space. All Rights Reserved.
+              ©2026 Wooblitz. All rights reserved.
 
             </p>
 

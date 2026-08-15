@@ -422,7 +422,7 @@ const Footer = () => {
 
             <div className="flex items-center flex-wrap gap-y-2 gap-x-3 text-sm font-normal text-muted-foreground animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
 
-              <p>©2026 Shadcn Space. All Rights Reserved.</p>
+              <p>©2026 Wooblitz. All rights reserved.</p>
 
               <span className="size-1 rounded-full bg-muted-foreground/50" />
 

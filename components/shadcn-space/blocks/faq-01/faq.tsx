@@ -22,51 +22,51 @@ const FAQ_DATA = [
 
   {
 
-    question: "What services does Shadcn Space offer?",
+    question: "How does Wooblitz build my store?",
 
     answer:
 
-      "We offer a wide range of services including web development, app development, and digital marketing.",
+      "Tell us what you sell. Our AI picks the right layout, blocks, and copy — and you see a preview before anything goes live.",
 
   },
 
   {
 
-    question: "How long does a typical project take?",
+    question: "How long until my store is live?",
 
     answer:
 
-      "The time it takes to complete a project depends on the complexity of the project and the scope of the work.",
+      "Most merchants go from signup to live store in under 10 minutes. You can edit anything anytime.",
 
   },
 
   {
 
-    question: "How is pricing structured at Awake Agency?",
+    question: "How much does it cost?",
 
     answer:
 
-      "Pricing is based on the complexity of the project and the scope of the work.",
+      "You can start free. When you're ready to take payments, plans start at $29/month. No setup fees, no hidden costs.",
 
   },
 
   {
 
-    question: "Do you offer ongoing support after project completion?",
+    question: "Do I need to know how to code?",
 
     answer:
 
-      "Absolutely! We offer comprehensive post-launch support to ensure a seamless implementation and provide ongoing maintenance packages tailored to clients who need regular updates or technical assistance. Our commitment doesn’t end at launch — we’re here to help you every step of the way.",
+      "No. Wooblitz is built for non-technical founders. Tell us what you want in plain language, and our AI handles the rest.",
 
   },
 
   {
 
-    question: "How often will I receive updates on my project?",
+    question: "Can I bring my own domain?",
 
     answer:
 
-      "We provide updates on a regular basis to ensure that your project is running smoothly and that you are aware of any changes or updates to the project.",
+      "Yes. Connect your domain in a few clicks — we handle SSL and DNS automatically.",
 
   },
 
@@ -92,13 +92,13 @@ export default function Faq() {
 
           >
 
-            FAQs
+            FAQ
 
           </Badge>
 
           <h2 className="text-5xl font-medium text-center max-w-lg">
 
-            Got questions? We’ve got answers ready
+            Got questions? We have answers.
 
           </h2>
 
